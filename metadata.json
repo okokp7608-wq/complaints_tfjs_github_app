@@ -1,7 +1,7 @@
 {
   "source_rows": 6200000,
-  "sample_rows": 4500,
-  "sample_strategy": "priority 클래스별 균형 샘플링, 최대 1,500건씩 추출",
+  "sample_rows": 30,
+  "sample_strategy": "priority 클래스별 균형 샘플링, GitHub Pages 화면 검증용 10건씩 추출",
   "target": "priority",
   "features": [
     "channel",
@@ -18,9 +18,10 @@
     "budget_impact"
   ],
   "class_counts": {
-    "민감": 1500,
-    "일반": 1500,
-    "긴급": 1500
+    "민감": 10,
+    "일반": 10,
+    "긴급": 10
   },
-  "generated_at": "2026-05-28"
+  "generated_at": "2026-05-28",
+  "note": "브라우저 표시 및 TF.js 서빙 상태 점검용 경량 샘플입니다. 운영 학습에는 별도 전체 샘플 파일을 사용하세요."
 }
