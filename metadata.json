@@ -1,0 +1,26 @@
+{
+  "source_rows": 6200000,
+  "sample_rows": 4500,
+  "sample_strategy": "priority 클래스별 균형 샘플링, 최대 1,500건씩 추출",
+  "target": "priority",
+  "features": [
+    "channel",
+    "complaint_type",
+    "region_code",
+    "staff_career",
+    "process_days",
+    "internal_consult",
+    "escalated",
+    "text_length",
+    "attachment_count",
+    "satisfaction",
+    "resubmit",
+    "budget_impact"
+  ],
+  "class_counts": {
+    "민감": 1500,
+    "일반": 1500,
+    "긴급": 1500
+  },
+  "generated_at": "2026-05-28"
+}

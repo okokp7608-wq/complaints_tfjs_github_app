@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>민원 샘플링 TensorFlow.js 서빙 현황</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Complaints Sampling · TensorFlow.js · GitHub Pages Ready</p>
+      <h1>민원 샘플링 기반 웹 AI 서빙 현황</h1>
+      <p class="lead">샘플링 데이터만 브라우저에 로드하여 TensorFlow.js로 학습하고, 우선순위(priority)를 즉시 예측하는 HTML 단일 웹앱입니다.</p>
+    </div>
+    <div class="status-card">
+      <span id="servingBadge" class="badge idle">대기</span>
+      <h2 id="servingTitle">모델 미학습</h2>
+      <p id="servingDesc">샘플 데이터를 불러온 뒤 브라우저에서 모델을 학습하세요.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel summary">
+      <h2>1. 데이터 및 서빙 현황</h2>
+      <div class="kpi-grid">
+        <div class="kpi"><span>샘플 건수</span><strong id="sampleRows">-</strong></div>
+        <div class="kpi"><span>원천 건수</span><strong id="sourceRows">-</strong></div>
+        <div class="kpi"><span>클래스 수</span><strong id="classCount">-</strong></div>
+        <div class="kpi"><span>TF.js Backend</span><strong id="backendName">-</strong></div>
+      </div>
+      <div class="button-row">
+        <button id="loadBtn">샘플 데이터 로드</button>
+        <button id="trainBtn" disabled>브라우저 학습 시작</button>
+        <button id="saveBtn" disabled>IndexedDB 저장</button>
+        <button id="loadModelBtn">저장 모델 불러오기</button>
+      </div>
+      <pre id="logBox" class="log">초기화 대기 중...</pre>
+    </section>
+
+    <section class="panel">
+      <h2>2. 샘플링 구성</h2>
+      <p class="hint">본 앱에는 전체 원천 데이터가 아니라 클래스별 균형 샘플링 결과만 포함됩니다.</p>
+      <table id="sampleTable">
+        <thead><tr><th>구분</th><th>값</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="panel wide">
+      <h2>3. 학습 성능 현황</h2>
+      <div class="metrics-grid">
+        <div class="metric"><span>Epoch</span><strong id="epochNow">-</strong></div>
+        <div class="metric"><span>Train Accuracy</span><strong id="trainAcc">-</strong></div>
+        <div class="metric"><span>Validation Accuracy</span><strong id="valAcc">-</strong></div>
+        <div class="metric"><span>Validation Loss</span><strong id="valLoss">-</strong></div>
+      </div>
+      <canvas id="lossCanvas" width="900" height="260" aria-label="loss chart"></canvas>
+    </section>
+
+    <section class="panel wide">
+      <h2>4. 웹 기반 예측 서빙</h2>
+      <p class="hint">입력값을 변경한 뒤 예측 버튼을 누르면 브라우저 메모리에 올라온 TensorFlow.js 모델이 실시간 추론합니다.</p>
+      <form id="predictForm" class="form-grid">
+        <label>접수채널<select id="channel"></select></label>
+        <label>민원유형<select id="complaint_type"></select></label>
+        <label>지역코드<select id="region_code"></select></label>
+        <label>담당자 경력<input id="staff_career" type="number" value="5" /></label>
+        <label>처리일수<input id="process_days" type="number" value="7" /></label>
+        <label>내부협의<input id="internal_consult" type="number" value="1" /></label>
+        <label>상급이관<select id="escalated"><option value="0">False</option><option value="1">True</option></select></label>
+        <label>본문길이<input id="text_length" type="number" value="800" /></label>
+        <label>첨부파일 수<input id="attachment_count" type="number" value="1" /></label>
+        <label>만족도<input id="satisfaction" type="number" step="0.1" value="3.2" /></label>
+        <label>재제출<input id="resubmit" type="number" value="0" /></label>
+        <label>예산영향<input id="budget_impact" type="number" value="500000" /></label>
+      </form>
+      <div class="button-row">
+        <button id="randomBtn" disabled>샘플 1건 채우기</button>
+        <button id="predictBtn" disabled>예측 실행</button>
+      </div>
+      <div id="predictionBox" class="prediction">모델 학습 후 예측 결과가 표시됩니다.</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>GitHub Pages 배포 가능: 정적 파일(index.html, app.js, styles.css, sampled_complaints.json, metadata.json)만으로 동작합니다.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
